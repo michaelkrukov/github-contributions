@@ -161,14 +161,14 @@ def make_report(contributions):
     )
 
 # Load contributions data
-with open(FILES_FOLDER + "/contributions.json", "r") as fh:
+with open(REPORT_FOLDER + "/contributions.json", "r") as fh:
     contributions = json.load(fh)
 
 # Create report
 report = make_report(contributions)
 
 # Save report
-with open(FILES_FOLDER + "/report.html", "w") as fh:
+with open(REPORT_FOLDER + "/report.html", "w") as fh:
     fh.write(report)
 
 # Render with hcti (if uncommented)

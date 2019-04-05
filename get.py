@@ -8,17 +8,17 @@ from config import *
 
 
 # Create folder
-print("Creating folder: {}/".format(FILES_FOLDER))
+print("Creating folder: {}/".format(REPORT_FOLDER))
 
-makedirs(FILES_FOLDER, exist_ok=True)
+makedirs(REPORT_FOLDER, exist_ok=True)
 
 # Initialize client and get repository
 print("Reading repository: {}".format(GITHUB_REPOSITORY))
 
 repo = Github(GITHUB_ACCESS_TOKEN).get_repo(GITHUB_REPOSITORY)
 
-FILE_CONTRIBUTIONS = FILES_FOLDER + "/contributions.json"
-FILE_CONTRIBUTIONS_COMMITS = FILES_FOLDER + "/contributions_commits.json"
+FILE_CONTRIBUTIONS = REPORT_FOLDER + "/contributions.json"
+FILE_CONTRIBUTIONS_COMMITS = REPORT_FOLDER + "/contributions_commits.json"
 
 # Read or create object with infromation about contributions
 try:
