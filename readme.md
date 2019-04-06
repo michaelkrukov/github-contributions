@@ -1,4 +1,4 @@
-# github-commits
+# github-contributions
 
 Script for reading commits (from github's API) and counting authors'
 additions and deletions. You can specify repository and date interval to
