@@ -48,7 +48,7 @@ for branch in repo.get_branches():
         branch.name, since=READ_SINCE, until=READ_UNTIL,
     ):
 
-        if "merge branch" in commit.commit.message.lower():
+        if commit.commit.message.lower().startswith("merge"):
             continue
 
         sha = commit.commit.tree.sha
