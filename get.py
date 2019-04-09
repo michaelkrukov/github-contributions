@@ -38,11 +38,18 @@ except Exception:
 
 
 for branch in repo.get_branches():
+    if branch.name in ("master", "develop",):
+        print("Skipping branch: {}".format(branch.name))
+        continue
+
     print("Reading branch: {}".format(branch.name))
 
     for commit in repo.get_commits(
         branch.name, since=READ_SINCE, until=READ_UNTIL,
     ):
+
+        if "merge branch" in commit.commit.message.lower():
+            continue
 
         sha = commit.commit.tree.sha
 

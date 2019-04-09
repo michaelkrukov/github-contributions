@@ -172,4 +172,4 @@ with open(REPORT_FOLDER + "/report.html", "w") as fh:
     fh.write(report)
 
 # Render with hcti (if uncommented)
-# print(render_report_with_hcti(report))
+print(render_report_with_hcti(report))
