@@ -4,7 +4,7 @@ Script for reading commits (from github's API) and counting authors'
 additions and deletions. You can specify repository and date interval to
 check.
 
-COnfiguration should be placed in python module next to `get.py` and
+Configuration should be placed in python module next to `get.py` and
 `nicefy.py`.
 
 Example `config.py`:
