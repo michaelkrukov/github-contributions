@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from itertools import chain
 from datetime import datetime
 import json
@@ -10,7 +12,21 @@ from config import *
 
 
 # Templates for report
-TEMPLATE = """<table><tr class="dts"><td></td>{dates}</tr>{rows}</table>"""
+TEMPLATE = """
+    <!doctype html>
+    <html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <title>Contributions</title>
+    </head>
+
+    <body>
+        <table><tr class="dts"><td></td>{dates}</tr>{rows}</table>
+    </body>
+
+    </html>
+"""
 
 TEMPLATE_ROW = """<tr><td><div class="cl nm">{name}</div></td>{cols}</tr>"""
 

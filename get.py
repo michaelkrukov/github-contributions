@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from datetime import datetime
 from os import makedirs
 import json
@@ -38,7 +40,7 @@ except Exception:
 
 
 for branch in repo.get_branches():
-    if branch.name in ("master", "develop",):
+    if branch.name in IGNORE_BRANCHES:
         print("Skipping branch: {}".format(branch.name))
         continue
 
