@@ -3,6 +3,7 @@
 from datetime import datetime
 from os import makedirs
 import json
+import re
 
 from github import Github
 
@@ -40,6 +41,7 @@ except Exception:
 
 
 for branch in repo.get_branches():
+    # Ignore branches from `IGNORE_BRANCHES` list
     if branch.name in IGNORE_BRANCHES:
         print("Skipping branch: {}".format(branch.name))
         continue
@@ -47,10 +49,13 @@ for branch in repo.get_branches():
     print("Reading branch: {}".format(branch.name))
 
     for commit in repo.get_commits(
-        branch.name, since=READ_SINCE, until=READ_UNTIL,
-    ):
+            branch.name, since=READ_SINCE, until=READ_UNTIL):
 
-        if commit.commit.message.lower().startswith("merge"):
+        message = commit.commit.message.strip().lower()
+
+        # Ignore commits with messages starting with `merge` or
+        # ending with `(#digits)` (considered to be pull request)`
+        if (message.startswith("merge") or re.search(r"\(#\d+\)$", message)):
             continue
 
         sha = commit.commit.tree.sha
@@ -90,8 +95,17 @@ for branch in repo.get_branches():
         if author not in contributions[date]:
             contributions[date][author] = [0, 0]
 
-        contributions[date][author][0] += commit.stats.additions
-        contributions[date][author][1] += commit.stats.deletions
+        additions = commit.stats.additions
+        deletions = commit.stats.deletions
+
+        # Ignore files from `IGNORE_FILES` list
+        for file in commit.files:
+            if file.filename in IGNORE_FILES:
+                additions -= file.additions
+                deletions -= file.deletions
+
+        contributions[date][author][0] += additions
+        contributions[date][author][1] += deletions
 
     # Save results every cycle (for safety)
     with open(FILE_CONTRIBUTIONS, "w") as fh:

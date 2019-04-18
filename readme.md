@@ -17,6 +17,12 @@ Use this script to create `contributions.json` file in `REPORT_FOLDER`.
 `get.py` will also create `contributions_commits.json` file with list of
 used commits' hashes.
 
+Script will ignore:
+
+- **Merges**. Commits with messages staring from 'merge' (case insensitive).
+- **Squashed pull requests**. Commits with messages ending with
+`(#digits)`, like `(#31)`.
+
 Example `contributions.json` (numbers is `[additions, deletions]`):
 
 ```json
@@ -49,6 +55,7 @@ GITHUB_ACCESS_TOKEN = "dfsdfsdfkushdfuwekjfn283ouijfouj"
 GITHUB_REPOSITORY = "Ivan753/mobius"
 
 IGNORE_BRANCHES = ("master", "develop",)
+IGNORE_FILES = ("package-lock.json", "Pipfile.lock",)
 
 READ_SINCE = datetime(year=2019, month=3, day=27)
 READ_UNTIL = datetime(year=2019, month=4, day=10)
